@@ -8,7 +8,12 @@ import grainTile from "../assets/tile_wheat.png";
 import lumberTile from "../assets/tile_wood.png";
 import oreTile from "../assets/tile_ore.png";
 import woolTile from "../assets/tile_sheep.png";
-import maritimeTile from "../assets/tile_maritime.svg";
+import portAny from "../assets/port_any.png";
+import portBrick from "../assets/port_brick.png";
+import portOre from "../assets/port_ore.png";
+import portSheep from "../assets/port_sheep.png";
+import portWheat from "../assets/port_wheat.png";
+import portWood from "../assets/port_wood.png";
 import { SQRT3, tilePixelVector } from "../utils/coordinates";
 import {
   type Direction,
@@ -99,6 +104,14 @@ const calculatePortPosition = (
   return { x, y };
 };
 
+const PORT_SHIPS: { [K in ResourceCard]: string } = {
+  BRICK: portBrick,
+  SHEEP: portSheep,
+  ORE: portOre,
+  WOOD: portWood,
+  WHEAT: portWheat,
+} as const;
+
 const Port = ({
   resource,
   style,
@@ -106,30 +119,21 @@ const Port = ({
   resource: ResourceCard;
   style: Partial<React.CSSProperties>;
 }) => {
-  let ratio;
-  let tile;
-  if (resource in RESOURCES) {
-    ratio = "2:1";
-    tile = RESOURCES[resource];
-  } else {
-    ratio = "3:1";
-    tile = maritimeTile;
-  }
+  const ship = resource in PORT_SHIPS ? PORT_SHIPS[resource] : portAny;
 
   return (
     <div
       className="port"
       style={{
         ...style,
-        backgroundImage: `url("${tile}")`,
+        backgroundImage: `url("${ship}")`,
         height: 60,
         backgroundSize: "contain",
-        width: 52,
+        width: 56,
         backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
       }}
-    >
-      {ratio}
-    </div>
+    />
   );
 };
 

@@ -48,7 +48,12 @@ main {
     text-align: center;
   }
 
-  background: variables.$black;
+  background: radial-gradient(
+    ellipse at center,
+    #3aa5d8 0%,
+    #1d6ea8 55%,
+    #14507e 100%
+  );
   color: white;
   height: 100%;
   display: flex;
